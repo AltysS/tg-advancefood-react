@@ -65,8 +65,10 @@ const ProductList = () => {
     setAddedItems(newItems);
 
     if (newItems.length === 0) {
+      console.log("work ZEOR");
       tg.MainButton.hide();
     } else {
+      console.log("work");
       tg.MainButton.show();
       tg.MainButton.setParams({
         text: `Придбати ${getTotalPrice(newItems)}`,
