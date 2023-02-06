@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProductItem from "../ProductItem/ProductItem";
 import "./ProductList.css";
 import useTelegram from "../../hooks/useTelegram";
@@ -52,18 +52,6 @@ const ProductList = () => {
 
   const tg = useTelegram();
 
-  useEffect(() => {
-    if (addedItems.length === 0) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
-      tg.MainButton.setParams({
-        text: `Придбати ${getTotalPrice(addedItems)}`,
-        color: "blue",
-      });
-    }
-  }, [addedItems]);
-
   const onAdd = (product) => {
     console.log(product);
     const alreadyAdded = addedItems.find((item) => item.id === product.id);
@@ -75,6 +63,16 @@ const ProductList = () => {
     }
 
     setAddedItems(newItems);
+
+    if (newItems.length === 0) {
+      tg.MainButton.hide();
+    } else {
+      tg.MainButton.show();
+      tg.MainButton.setParams({
+        text: `Придбати ${getTotalPrice(newItems)}`,
+        color: "blue",
+      });
+    }
   };
   return (
     <div className={"list"}>
