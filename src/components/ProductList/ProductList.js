@@ -69,6 +69,7 @@ const ProductList = () => {
       tg.MainButton.show();
       tg.MainButton.setParams({
         text: `Придбати ${getTotalPrice(newItems)}`,
+        color: "blue",
       });
     }
   };
