@@ -67,9 +67,6 @@ const ProductList = () => {
     if (newItems.length === 0) {
       tg.MainButton.hide();
     } else {
-      tg.MainButton.setParams({
-        text: `Придбати ${getTotalPrice(newItems)}`,
-      });
       tg.MainButton.show();
     }
   };
