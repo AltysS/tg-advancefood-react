@@ -14,28 +14,28 @@ const products = [
   {
     id: 2,
     title: "Advance Dog Yorkshire",
-    price: 495,
+    price: 845,
     description:
       "Advance Dog Yorkshire - високоякісний збалансований повнораціонний корм спеціально розроблений для забезпечення харчових потреб собак породи Йоркширський терsєр в віці від 1 року",
   },
   {
     id: 3,
     title: "Advance Dog Yorkshire",
-    price: 495,
+    price: 795,
     description:
       "Advance Dog Yorkshire - високоякісний збалансований повнораціонний корм спеціально розроблений для забезпечення харчових потреб собак породи Йоркширський терsєр в віці від 1 року",
   },
   {
     id: 4,
     title: "Advance Dog Yorkshire",
-    price: 495,
+    price: 695,
     description:
       "Advance Dog Yorkshire - високоякісний збалансований повнораціонний корм спеціально розроблений для забезпечення харчових потреб собак породи Йоркширський терsєр в віці від 1 року",
   },
   {
     id: 5,
     title: "Advance Dog Yorkshire",
-    price: 495,
+    price: 595,
     description:
       "Advance Dog Yorkshire - високоякісний збалансований повнораціонний корм спеціально розроблений для забезпечення харчових потреб собак породи Йоркширський терsєр в віці від 1 року",
   },
@@ -50,10 +50,9 @@ const getTotalPrice = (items) => {
 const ProductList = () => {
   const [addedItems, setAddedItems] = useState([]);
 
-  const tg = useTelegram();
+  const { tg } = useTelegram();
 
   const onAdd = (product) => {
-    console.log(product);
     const alreadyAdded = addedItems.find((item) => item.id === product.id);
     let newItems = [];
     if (alreadyAdded) {
