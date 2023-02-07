@@ -13,6 +13,7 @@
     width: 100%;
     background: lightgray;
     margin: 0 auto;
+    background: var(--tg-theme-button-color);
     margin-bottom: 10px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,5 +29,5 @@
 .add-btn {
     width: 100%;
     margin-bottom: 10px;
-    color: var(--tg-theme-button-color);
+    color: 4px solid var(--tg-theme-button-color);
 }
