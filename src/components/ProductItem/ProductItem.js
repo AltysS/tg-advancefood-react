@@ -8,7 +8,10 @@ const ProductItem = ({ product, onAdd }) => {
   };
   return (
     <div className={"product"}>
-      <div className={"img"} />
+      <img
+        src="https://detta.com.ua/upload/iblock/41a/8410650170480.png"
+        className={"img"}
+      />
       <div className={"title"}>{product.title}</div>
       <div className={"description"}>{product.description}</div>
       <div className={"price"}>
