@@ -67,6 +67,10 @@ const ProductList = () => {
       tg.MainButton.hide();
     } else {
       tg.MainButton.show();
+      tg.MainButton.setParams({
+        color: "orange",
+        text: "Замовити товар на сумму" + getTotalPrice(addedItems),
+      });
     }
   };
   return (
