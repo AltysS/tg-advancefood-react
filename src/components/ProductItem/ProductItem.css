@@ -29,5 +29,5 @@
 .add-btn {
     width: 100%;
     margin-bottom: 10px;
-    color: 4px solid var(--tg-theme-button-color);
+    color: var(--tg-theme-button-color);
 }
