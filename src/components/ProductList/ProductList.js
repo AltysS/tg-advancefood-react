@@ -69,7 +69,7 @@ const ProductList = () => {
       tg.MainButton.show();
       tg.MainButton.setParams({
         color: "orange",
-        text: "Замовити товар на сумму" + getTotalPrice(addedItems),
+        text: `Замовити товар на сумму ${getTotalPrice(newItems)}`,
       });
     }
   };
