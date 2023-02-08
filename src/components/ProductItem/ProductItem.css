@@ -7,6 +7,7 @@
     margin-right: 10px;
     margin-bottom: 10px;
     text-align: center;
+    position: relative;
 }
 
 .img {
@@ -26,13 +27,32 @@
     margin-bottom: 10px;
 }
 
-.add-btn {
-    width: 100%;
+.btn {
+    width: 30px;
     margin-bottom: 10px;
     background-color: blue;
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 10px;
+    padding: 5px;
     margin-top: 20px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.qtyRoundFigure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    background-color: orangered;
+    color: white;
+    border-radius: 20px;
+    position: absolute;
+    top: 5%;
+    left: 60%;
 }
