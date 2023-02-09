@@ -68,9 +68,10 @@ const ProductList = () => {
     let totalQty = 0;
     const newItemsArr = addedItems.map((el) => {
       if (el.id === product.id && product.orderedQty !== 0) {
-        product.orderedQty -= 1;
+        el.orderedQty -= 1;
+        totalQty += el.orderedQty;
       } else {
-        totalQty += product.orderedQty;
+        totalQty += el.orderedQty;
       }
       return el;
     });

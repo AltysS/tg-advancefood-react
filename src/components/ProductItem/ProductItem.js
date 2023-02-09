@@ -3,7 +3,6 @@ import "./ProductItem.css";
 import Button from "../../components/Button/Button";
 
 const ProductItem = ({ orderedQty, product, onAdd, onDelete, needUpdate }) => {
-  console.log(orderedQty);
   const onDeleteHandler = () => {
     onDelete(product);
   };
@@ -26,7 +25,11 @@ const ProductItem = ({ orderedQty, product, onAdd, onDelete, needUpdate }) => {
           Ціна: <b>{product.price}</b>
         </span>
         <div className={"btn-container"}>
-          <Button className={"btn"} onClick={onDeleteHandler}>
+          <Button
+            disabled={orderedQty === 0 && true}
+            className={"btn"}
+            onClick={onDeleteHandler}
+          >
             -
           </Button>
           <Button className={"btn"} onClick={onAddHandler}>
