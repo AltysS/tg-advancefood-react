@@ -9,7 +9,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<ProductList />} />
-        <Route path={"form"} element={<Form />} />
+        <Route path={":id/form"} element={<Form />} />
       </Route>
     </Routes>
   );

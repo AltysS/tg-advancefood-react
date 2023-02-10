@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ProductItem from "../ProductItem/ProductItem";
 import "./ProductList.css";
 import useTelegram from "../../hooks/useTelegram";
+import Form from "../Form/Form";
+import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -55,7 +57,9 @@ const getTotalPrice = (items) => {
 const ProductList = () => {
   const [addedItems, setAddedItems] = useState();
   const [needUpdate, setNeedUpdate] = useState(false);
+  const [order, setOrder] = useState();
   const { tg } = useTelegram();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setNeedUpdate(!needUpdate);
@@ -63,6 +67,20 @@ const ProductList = () => {
   useEffect(() => {
     setAddedItems(products);
   }, []);
+
+  const onSendOrder = useCallback((products) => {
+    const data = {
+      order: products,
+      orderNo: Math.random(1 * 10),
+    };
+    setOrder(data);
+    navigate(`${data.orderNo}/form`);
+  });
+
+  useEffect(() => {
+    tg.onEvent("mainButtonClicked", onSendOrder);
+    return () => tg.offEvent("mainButtonClicked", onSendOrder);
+  }, [onSendOrder]);
 
   const onDelete = (product) => {
     let totalQty = 0;
@@ -94,23 +112,6 @@ const ProductList = () => {
       text: `Придбати на сумму ${getTotalPrice(newItemsArr)}`,
     });
     tg.MainButton.show();
-    // const alreadyAdded = addedItems.find((item) => item.id === product.id);
-    // let newItems = [];
-    // if (alreadyAdded) {
-    //   newItems = addedItems.filter((item) => item.id !== product.id);
-    // } else {
-    //   newItems = [...addedItems, product];
-    // }
-    // setAddedItems(newItems);
-    // console.log(getTotalPrice(newItems));
-    // if (newItems.length === 0) {
-    //   tg.MainButton.hide();
-    // } else {
-    //   tg.MainButton.setParams({
-    //     text: `Замовити товар на сумму ${getTotalPrice(newItems)}`,
-    //   });
-    //   tg.MainButton.show();
-    // }
   };
   return (
     addedItems && (
