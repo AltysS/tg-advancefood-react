@@ -2,8 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import ProductItem from "../ProductItem/ProductItem";
 import "./ProductList.css";
 import useTelegram from "../../hooks/useTelegram";
-import Form from "../Form/Form";
 import { useNavigate } from "react-router-dom";
+import { useSelector, use, useDispatch } from "react-redux";
+import {
+  addProductToCart,
+  setCatalogueProducts,
+} from "../../store/catalogue/catalogueSlice";
 
 const products = [
   {
@@ -55,17 +59,17 @@ const getTotalPrice = (items) => {
 };
 
 const ProductList = () => {
-  const [addedItems, setAddedItems] = useState();
+  const dispatch = useDispatch();
+  const catalogueProducts = useSelector(
+    (store) => store.catalogue.catalogueProducts
+  );
   const [needUpdate, setNeedUpdate] = useState(false);
   const [order, setOrder] = useState();
   const { tg } = useTelegram();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setNeedUpdate(!needUpdate);
-  }, [addedItems]);
-  useEffect(() => {
-    setAddedItems(products);
+    dispatch(setCatalogueProducts(products));
   }, []);
 
   const onSendOrder = useCallback((products) => {
@@ -99,24 +103,16 @@ const ProductList = () => {
   };
 
   const onAdd = (product) => {
-    const newItemsArr = addedItems;
-    newItemsArr.map((el) => {
-      if (el.id === product.id) {
-        return (el.orderedQty += 1);
-      }
-      return el;
-    });
-    setAddedItems(newItemsArr);
-    setNeedUpdate(!needUpdate);
+    dispatch(addProductToCart(product));
     tg.MainButton.setParams({
-      text: `Придбати на сумму ${getTotalPrice(newItemsArr)}`,
+      text: `Придбати на сумму ${getTotalPrice(catalogueProducts)}`,
     });
     tg.MainButton.show();
   };
   return (
-    addedItems && (
+    catalogueProducts && (
       <div className={"list"}>
-        {addedItems.map((item) => (
+        {catalogueProducts.map((item) => (
           <ProductItem
             orderedQty={item.orderedQty}
             key={item.id}
