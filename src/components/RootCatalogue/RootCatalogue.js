@@ -43,8 +43,12 @@ const RootCatalogue = () => {
             return (
               <div
                 onClick={() => {
-                  dispatch(incrementCategoryLevel(id));
-                  navigate(`${id}`);
+                  if (categoryLevel === 1) {
+                    navigate(`/products/${params.id}/${id}`);
+                  } else {
+                    dispatch(incrementCategoryLevel(id));
+                    navigate(`${id}`);
+                  }
                 }}
                 className="categoryContainer"
               >

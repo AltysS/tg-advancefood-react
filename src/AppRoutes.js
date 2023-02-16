@@ -5,6 +5,7 @@ import Form from "./components/Form/Form";
 import AppLayout from "./Layout";
 import HomePage from "./components/HomePage/HomePage";
 import RootCatalogue from "./components/RootCatalogue/RootCatalogue";
+import ProductList from "./components/ProductList/ProductList";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -12,7 +13,10 @@ const AppRoutes = () => {
         <Route index element={<HomePage />} />
         <Route path="catalogue/" element={<RootCatalogue />} />
         <Route path="catalogue/:id" element={<RootCatalogue />} />
-        <Route path="products/:id" element={<h2>List</h2>} />
+        <Route
+          path="products/:category/:subcategory"
+          element={<ProductList />}
+        />
       </Route>
     </Routes>
   );
