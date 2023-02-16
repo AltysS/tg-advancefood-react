@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getCatalogueCategories = createAsyncThunk(
   "fetchCatalogueCategories",
-  async (_, { rejectWithValue }) => {
+  async (paramsID, { rejectWithValue }) => {
     try {
       const data = await fetch(
         "https://b2b.detta.com.ua/api/hs/v3/get-products-shop",
@@ -14,7 +14,7 @@ export const getCatalogueCategories = createAsyncThunk(
           },
         }
       ).then((data) => data.json());
-      return data;
+      return { data, paramsID };
     } catch (err) {
       rejectWithValue(err);
     }
@@ -31,9 +31,16 @@ const catalogueSlice = createSlice({
     categoryID: null,
   },
   reducers: {
+    setCategoryLevel: (state, action) => {
+      state.categoryLevel = action.payload;
+    },
     incrementCategoryLevel: (state, action) => {
       state.categoryID = action.payload;
       state.categoryLevel += 1;
+    },
+    decrementCategoryLevel: (state, action) => {
+      state.categoryID = action.payload;
+      state.categoryLevel -= 1;
     },
     setCatalogueProducts: (state, action) => {
       state.catalogueProducts = action.payload;
@@ -51,7 +58,13 @@ const catalogueSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getCatalogueCategories.fulfilled, (state, action) => {
-      const { categories, products } = action.payload;
+      const hasParams = action.payload?.paramsID;
+      if (hasParams) {
+        state.categoryLevel = 1;
+        state.categoryID = hasParams;
+      }
+
+      const { categories, products } = action.payload.data;
       const categoriesList = [[], [], []];
       categories.map((el) => {
         if (el.level === 1) {
@@ -74,6 +87,8 @@ export const {
   addProductToCart,
   setIsLoading,
   incrementCategoryLevel,
+  setCategoryLevel,
+  decrementCategoryLevel,
 } = catalogueSlice.actions;
 
 export default catalogueSlice.reducer;

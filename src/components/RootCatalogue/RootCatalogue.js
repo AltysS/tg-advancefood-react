@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
+  decrementCategoryLevel,
   getCatalogueCategories,
   incrementCategoryLevel,
+  setCategoryLevel,
   setIsLoading,
 } from "../../store/catalogue/catalogueSlice";
 import Button from "../Button/Button";
@@ -13,6 +15,7 @@ import "./RootCatalogue.css";
 const RootCatalogue = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
   const categoryLevel = useSelector((state) => state.catalogue.categoryLevel);
   const categoryID = useSelector((state) => state.catalogue.categoryID);
   const categories = useSelector(
@@ -22,7 +25,7 @@ const RootCatalogue = () => {
 
   useEffect(() => {
     dispatch(setIsLoading(true));
-    dispatch(getCatalogueCategories());
+    dispatch(getCatalogueCategories(params.id));
   }, []);
 
   const categoryComponent = () => {
@@ -30,8 +33,7 @@ const RootCatalogue = () => {
     const filteredArr =
       categoryID &&
       categories[categoryLevel].filter((el) => {
-        console.log(el.child_categories[0] === categoryID);
-        if (el.child_categories[0] === categoryID) {
+        if (el.child_categories[0] === Number(categoryID)) {
           return el;
         }
       });
@@ -41,7 +43,10 @@ const RootCatalogue = () => {
           {filteredArr.map(({ id, name }) => {
             return (
               <div
-                onClick={() => dispatch(incrementCategoryLevel(id))}
+                onClick={() => {
+                  dispatch(incrementCategoryLevel(id));
+                  navigate(`${id}`);
+                }}
                 className="categoryContainer"
               >
                 <div>
@@ -59,7 +64,11 @@ const RootCatalogue = () => {
           {categories[categoryLevel].map(({ id, name }) => {
             return (
               <div
-                onClick={() => dispatch(incrementCategoryLevel(id))}
+                onClick={() => {
+                  console.log(params);
+                  dispatch(incrementCategoryLevel(id));
+                  navigate(`${id}`);
+                }}
                 className="categoryContainer"
               >
                 <div>
@@ -78,7 +87,14 @@ const RootCatalogue = () => {
   return (
     <div>
       <Button>Choose category</Button>
-      <Button onClick={() => console.log("click")}>Go Back</Button>
+      <Button
+        onClick={() => {
+          dispatch(decrementCategoryLevel());
+          navigate(-1);
+        }}
+      >
+        Go Back
+      </Button>
       {!isLoading ? categoryComponent() : <h2>Loading</h2>}
     </div>
   );
