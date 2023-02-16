@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import productsAndCategorites from "./categories/categories";
 
 export const getCatalogueCategories = createAsyncThunk(
   "fetchCatalogueCategories",
@@ -29,8 +28,13 @@ const catalogueSlice = createSlice({
     catalogueCategories: [],
     isLoading: true,
     categoryLevel: 0,
+    categoryID: null,
   },
   reducers: {
+    incrementCategoryLevel: (state, action) => {
+      state.categoryID = action.payload;
+      state.categoryLevel += 1;
+    },
     setCatalogueProducts: (state, action) => {
       state.catalogueProducts = action.payload;
     },
@@ -65,7 +69,11 @@ const catalogueSlice = createSlice({
   },
 });
 
-export const { setCatalogueProducts, addProductToCart, setIsLoading } =
-  catalogueSlice.actions;
+export const {
+  setCatalogueProducts,
+  addProductToCart,
+  setIsLoading,
+  incrementCategoryLevel,
+} = catalogueSlice.actions;
 
 export default catalogueSlice.reducer;
