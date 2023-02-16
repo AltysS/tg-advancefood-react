@@ -5,7 +5,6 @@ import {
   decrementCategoryLevel,
   getCatalogueCategories,
   incrementCategoryLevel,
-  setCategoryLevel,
   setIsLoading,
 } from "../../store/catalogue/catalogueSlice";
 import Button from "../Button/Button";
@@ -88,6 +87,14 @@ const RootCatalogue = () => {
     <div>
       <Button>Choose category</Button>
       <Button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Main
+      </Button>
+      <Button
+        disabled={categoryLevel === 0 && true}
         onClick={() => {
           dispatch(decrementCategoryLevel());
           navigate(-1);
