@@ -4,8 +4,13 @@ header {
     display: flex;
     align-items: center;
     padding: 0 20px;
+    background-color: rgb(4, 120, 4);
+    position: relative;
 }
 
-.username {
-    margin-left: auto;
+.menuList {
+    position: absolute;
+    left: 35px;
+    top: 50px;
+    border: 1px solid black;
 }

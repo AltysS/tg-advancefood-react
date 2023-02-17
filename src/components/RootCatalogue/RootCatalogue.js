@@ -5,6 +5,8 @@ import {
   decrementCategoryLevel,
   getCatalogueCategories,
   incrementCategoryLevel,
+  setCategoryID,
+  setCategoryLevel,
   setIsLoading,
 } from "../../store/catalogue/catalogueSlice";
 import Button from "../Button/Button";
@@ -29,6 +31,7 @@ const RootCatalogue = () => {
 
   const categoryComponent = () => {
     let JSX;
+
     const filteredArr =
       categoryID &&
       categories[categoryLevel].filter((el) => {
@@ -36,10 +39,14 @@ const RootCatalogue = () => {
           return el;
         }
       });
+    console.log(filteredArr);
+    console.log(categories[categoryLevel]);
     if (filteredArr) {
       JSX = !isLoading && (
         <div className="categoriesWrapper">
           {filteredArr.map(({ id, name }) => {
+            console.log("if working");
+
             return (
               <div
                 onClick={() => {
@@ -65,6 +72,7 @@ const RootCatalogue = () => {
       JSX = !isLoading && (
         <div className="categoriesWrapper">
           {categories[categoryLevel].map(({ id, name }) => {
+            console.log("else working");
             return (
               <div
                 onClick={() => {
@@ -92,6 +100,8 @@ const RootCatalogue = () => {
       <Button
         onClick={() => {
           navigate("/");
+          dispatch(setCategoryLevel(0));
+          dispatch(setCategoryID(null));
         }}
       >
         Main
