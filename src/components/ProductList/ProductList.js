@@ -6,6 +6,7 @@ import {
   setIsLoading,
 } from "../../store/catalogue/catalogueSlice";
 import ProductItem from "../ProductItem/ProductItem";
+import "./ProductList.css";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -18,9 +19,13 @@ const ProductList = () => {
     }
   }, []);
   const { subcategory } = useParams();
+
   const filterProducts =
     !isLoading && products.filter((el) => el.category === subcategory);
-  console.log(filterProducts);
+  filterProducts &&
+    filterProducts.map((el) => {
+      console.log(el);
+    });
   return (
     <div>
       {isLoading ? (
@@ -28,16 +33,19 @@ const ProductList = () => {
       ) : (
         <>
           <h2>Product List</h2>
-          <ProductItem />
-          {filterProducts.map(({ brand, count, name, opt, price }) => {
-            <ProductItem
-              brand={brand}
-              count={count}
-              name={name}
-              opt={opt}
-              price={price}
-            />;
-          })}
+          <div className="productWrapper">
+            {filterProducts.map(({ brand, count, name, opt, price }) => {
+              return (
+                <ProductItem
+                  brand={brand}
+                  count={count}
+                  name={name}
+                  opt={opt}
+                  price={price}
+                />
+              );
+            })}
+          </div>
         </>
       )}
     </div>

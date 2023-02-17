@@ -29,8 +29,12 @@ const catalogueSlice = createSlice({
     isLoading: true,
     categoryLevel: 0,
     categoryID: null,
+    isMenuOpen: false,
   },
   reducers: {
+    toggleIsMenuOpen: (state) => {
+      state.isMenuOpen = !state.isMenuOpen;
+    },
     setCategoryLevel: (state, action) => {
       state.categoryLevel = action.payload;
     },
@@ -89,6 +93,7 @@ export const {
   incrementCategoryLevel,
   setCategoryLevel,
   decrementCategoryLevel,
+  toggleIsMenuOpen,
 } = catalogueSlice.actions;
 
 export default catalogueSlice.reducer;

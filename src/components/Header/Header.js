@@ -1,21 +1,21 @@
-// import React, { useEffect } from "react";
-// import Button from "../Button/Button";
-// import useTelegram from "../../hooks/useTelegram";
-// import { useNavigate } from "react-router-dom";
-// import "./Header.css";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import BurgerMenuItems from "./BurgerMenu/BurgerMenu";
+import "./Header.css";
+import BurgerMenu from "./images/BurgerMenu";
+import CloseMenu from "./images/CloseMenu";
 
-// const tg = window.Telegram.WebApp;
+const Header = () => {
+  const dispatch = useDispatch();
+  const categories = useSelector(
+    (state) => state.catalogue.catalogueCategories
+  );
 
-// const Header = () => {
-//   const navigate = useNavigate();
-//   const { user, onClose } = useTelegram();
+  return (
+    <div>
+      <BurgerMenuItems />
+    </div>
+  );
+};
 
-//   return (
-//     <div className={"header"}>
-//       <Button onClick={navigate(-1)}>Go Back</Button>
-//       <span className={"username"}>{user?.username}</span>
-//     </div>
-//   );
-// };
-
-// export default Header;
+export default Header;

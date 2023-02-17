@@ -68,7 +68,6 @@ const RootCatalogue = () => {
             return (
               <div
                 onClick={() => {
-                  console.log(params);
                   dispatch(incrementCategoryLevel(id));
                   navigate(`${id}`);
                 }}
