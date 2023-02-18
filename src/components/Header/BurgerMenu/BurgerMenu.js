@@ -10,7 +10,11 @@ const BurgerMenuItems = () => {
 
   return (
     <div
-      style={{ maxWidth: "50px", padding: "20px", height: "60px" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
       onClick={() => dispatch(toggleIsMenuOpen())}
     >
       {isMenuOpen ? <CloseMenu /> : <BurgerMenu />}

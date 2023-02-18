@@ -18,14 +18,12 @@ const ProductList = () => {
       dispatch(getCatalogueCategories());
     }
   }, []);
+
   const { subcategory } = useParams();
 
   const filterProducts =
     !isLoading && products.filter((el) => el.category === subcategory);
-  filterProducts &&
-    filterProducts.map((el) => {
-      console.log(el);
-    });
+  filterProducts && filterProducts.map((el) => {});
   return (
     <div>
       {isLoading ? (
@@ -34,17 +32,20 @@ const ProductList = () => {
         <>
           <h2>Product List</h2>
           <div className="productWrapper">
-            {filterProducts.map(({ brand, count, name, opt, price }) => {
-              return (
-                <ProductItem
-                  brand={brand}
-                  count={count}
-                  name={name}
-                  opt={opt}
-                  price={price}
-                />
-              );
-            })}
+            {filterProducts.map(
+              ({ brand, count, name, opt, price, barcode }) => {
+                return (
+                  <ProductItem
+                    brand={brand}
+                    count={count}
+                    name={name}
+                    opt={opt}
+                    price={price}
+                    barcode={barcode}
+                  />
+                );
+              }
+            )}
           </div>
         </>
       )}

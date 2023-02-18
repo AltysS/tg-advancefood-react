@@ -30,6 +30,7 @@ const catalogueSlice = createSlice({
     categoryLevel: 0,
     categoryID: null,
     isMenuOpen: false,
+    hasNextCategory: null,
   },
   reducers: {
     toggleIsMenuOpen: (state) => {
@@ -84,6 +85,7 @@ const catalogueSlice = createSlice({
       });
       state.catalogueCategories = categoriesList;
       state.catalogueProducts = products;
+      state.hasNextCategory = true;
       state.isLoading = false;
     });
   },

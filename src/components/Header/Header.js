@@ -1,5 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  setCategoryID,
+  setCategoryLevel,
+  toggleIsMenuOpen,
+} from "../../store/catalogue/catalogueSlice";
+import { useNavigate } from "react-router-dom";
 import BurgerMenuItems from "./BurgerMenu/BurgerMenu";
 import "./Header.css";
 import BurgerMenu from "./images/BurgerMenu";
@@ -8,29 +14,34 @@ import Logo from "./images/Logo";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const categories = useSelector(
     (state) => state.catalogue.catalogueCategories[0]
   );
   const isMenuOpen = useSelector((state) => state.catalogue.isMenuOpen);
-  console.log(categories);
   return (
     <header>
       <BurgerMenuItems />
-      <div className="menuList">
-        {isMenuOpen &&
-          categories.map((el) => {
+      {isMenuOpen && (
+        <div className="menuList">
+          {categories.map((el) => {
             return (
               <div
-              // onClick={() => {
-              //   dispatch(incrementCategoryLevel(id));
-              //   navigate(`${id}`);
-              // }}
+                onClick={() => {
+                  dispatch(setCategoryLevel(1));
+                  dispatch(setCategoryID(el.id));
+                  dispatch(toggleIsMenuOpen());
+                  navigate(`/catalogue/${el.id}`);
+                }}
               >
-                <a href="#">{el.name}</a>
+                <a className="menuItem" href="#">
+                  {el.name}
+                </a>
               </div>
             );
           })}
-      </div>
+        </div>
+      )}
     </header>
   );
 };

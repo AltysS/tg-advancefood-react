@@ -1,0 +1,13 @@
+.productItemWrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.productImage {
+    max-width: 150px;
+    max-height: 150px;
+}

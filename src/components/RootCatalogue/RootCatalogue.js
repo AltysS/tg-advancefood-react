@@ -22,6 +22,9 @@ const RootCatalogue = () => {
   const categories = useSelector(
     (state) => state.catalogue.catalogueCategories
   );
+  const hasNextCategory = useSelector(
+    (state) => state.catalogue.hasNextCategory
+  );
   const isLoading = useSelector((state) => state.catalogue.isLoading);
 
   useEffect(() => {
@@ -31,7 +34,6 @@ const RootCatalogue = () => {
 
   const categoryComponent = () => {
     let JSX;
-
     const filteredArr =
       categoryID &&
       categories[categoryLevel].filter((el) => {
@@ -39,18 +41,20 @@ const RootCatalogue = () => {
           return el;
         }
       });
-    console.log(filteredArr);
-    console.log(categories[categoryLevel]);
     if (filteredArr) {
       JSX = !isLoading && (
         <div className="categoriesWrapper">
           {filteredArr.map(({ id, name }) => {
-            console.log("if working");
-
             return (
               <div
                 onClick={() => {
-                  if (categoryLevel === 1) {
+                  const hasChildCategory =
+                    categories[categoryLevel + 1] &&
+                    categories[categoryLevel + 1].find((el) => {
+                      return el.child_categories[0] === id;
+                    });
+                  console.log(hasChildCategory);
+                  if (!hasChildCategory) {
                     navigate(`/products/${params.id}/${id}`);
                   } else {
                     dispatch(incrementCategoryLevel(id));
@@ -72,7 +76,6 @@ const RootCatalogue = () => {
       JSX = !isLoading && (
         <div className="categoriesWrapper">
           {categories[categoryLevel].map(({ id, name }) => {
-            console.log("else working");
             return (
               <div
                 onClick={() => {
@@ -91,6 +94,8 @@ const RootCatalogue = () => {
         </div>
       );
     }
+    JSX.props.children.length === 0 &&
+      navigate(`/products/${categoryID}/${categoryID}`);
     return JSX;
   };
 
@@ -98,6 +103,7 @@ const RootCatalogue = () => {
     <div>
       <Button>Choose category</Button>
       <Button
+        disabled={isLoading && true}
         onClick={() => {
           navigate("/");
           dispatch(setCategoryLevel(0));
@@ -106,7 +112,7 @@ const RootCatalogue = () => {
       >
         Main
       </Button>
-      <Button
+      {/* <Button
         disabled={categoryLevel === 0 && true}
         onClick={() => {
           dispatch(decrementCategoryLevel());
@@ -114,7 +120,7 @@ const RootCatalogue = () => {
         }}
       >
         Go Back
-      </Button>
+      </Button> */}
       {!isLoading ? categoryComponent() : <h2>Loading</h2>}
     </div>
   );
