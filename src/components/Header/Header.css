@@ -6,6 +6,9 @@ header {
     padding: 0 20px;
     background-color: rgb(4, 120, 4);
     position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .menuList {
