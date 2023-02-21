@@ -24,12 +24,12 @@ const ProductList = () => {
   );
 
   const { subcategory } = useParams();
-  // useEffect(() => {
-  //   if (products.length === 0) {
-  //     dispatch(setIsLoading(true));
-  //     dispatch(getCatalogueCategories());
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (products.length === 0) {
+      dispatch(setIsLoading(true));
+      dispatch(getCatalogueCategories());
+    }
+  }, []);
 
   const filterAndSortProducts = (optionElement) => {
     const filterProducts = products.filter((el) => el.category === subcategory);
@@ -69,7 +69,7 @@ const ProductList = () => {
   useEffect(() => {
     dispatch(setIsLoading(true));
     filterAndSortProducts();
-  }, []);
+  }, [products]);
 
   const handleChangeOpt = (barcode, imageRef, sku) => {
     const requestedEl = products.find((el) => el.barcode === barcode);
@@ -80,7 +80,7 @@ const ProductList = () => {
 
   return (
     <div>
-      {isLoading ? (
+      {products.length === 0 ? (
         <h2>Loading</h2>
       ) : (
         <>

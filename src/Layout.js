@@ -6,7 +6,7 @@ const AppLayout = () => {
   return (
     <>
       <Header />
-      <main>
+      <main style={{ paddingTop: "50px" }}>
         <Outlet />
       </main>
       <footer>footer</footer>
