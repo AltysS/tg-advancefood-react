@@ -31,8 +31,23 @@ const catalogueSlice = createSlice({
     categoryID: null,
     isMenuOpen: false,
     hasNextCategory: null,
+    requestedProducts: [],
   },
   reducers: {
+    sortRequestedProducts: (state, action) => {
+      const findIndex = state.requestedProducts.findIndex(
+        (el) => el.sku === action.payload.sku
+      );
+      state.requestedProducts[findIndex].barcode =
+        action.payload.requestedEl.barcode;
+      state.requestedProducts[findIndex].count =
+        action.payload.requestedEl.count;
+      state.requestedProducts[findIndex].sku = action.payload.requestedEl.sku;
+    },
+    setSortedProducts: (state, action) => {
+      state.requestedProducts = action.payload;
+      state.isLoading = false;
+    },
     toggleIsMenuOpen: (state) => {
       state.isMenuOpen = !state.isMenuOpen;
     },
@@ -100,6 +115,9 @@ export const {
   decrementCategoryLevel,
   toggleIsMenuOpen,
   setCategoryID,
+  setRequestedProducts,
+  setSortedProducts,
+  sortRequestedProducts,
 } = catalogueSlice.actions;
 
 export default catalogueSlice.reducer;

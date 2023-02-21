@@ -22,9 +22,7 @@ const RootCatalogue = () => {
   const categories = useSelector(
     (state) => state.catalogue.catalogueCategories
   );
-  const hasNextCategory = useSelector(
-    (state) => state.catalogue.hasNextCategory
-  );
+
   const isLoading = useSelector((state) => state.catalogue.isLoading);
 
   useEffect(() => {
@@ -47,6 +45,7 @@ const RootCatalogue = () => {
           {filteredArr.map(({ id, name }) => {
             return (
               <div
+                key={id}
                 onClick={() => {
                   const hasChildCategory =
                     categories[categoryLevel + 1] &&
@@ -78,6 +77,7 @@ const RootCatalogue = () => {
           {categories[categoryLevel].map(({ id, name }) => {
             return (
               <div
+                key={id}
                 onClick={() => {
                   dispatch(incrementCategoryLevel(id));
                   navigate(`${id}`);

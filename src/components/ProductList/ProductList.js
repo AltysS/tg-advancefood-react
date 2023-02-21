@@ -1,29 +1,76 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   getCatalogueCategories,
   setIsLoading,
+  setRequestedProducts,
+  setSortedProducts,
+  sortRequestedProducts,
 } from "../../store/catalogue/catalogueSlice";
 import ProductItem from "../ProductItem/ProductItem";
 import "./ProductList.css";
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.catalogue.catalogueProducts);
+  const products = useSelector(
+    (state) => state.catalogue.catalogueProducts,
+    shallowEqual
+  );
   const isLoading = useSelector((state) => state.catalogue.isLoading);
-  useEffect(() => {
-    if (products.length === 0) {
-      dispatch(setIsLoading(true));
-      dispatch(getCatalogueCategories());
-    }
-  }, []);
+  const requestedProducts = useSelector(
+    (state) => state.catalogue.requestedProducts,
+    shallowEqual
+  );
 
   const { subcategory } = useParams();
+  // useEffect(() => {
+  //   if (products.length === 0) {
+  //     dispatch(setIsLoading(true));
+  //     dispatch(getCatalogueCategories());
+  //   }
+  // }, []);
 
-  const filterProducts =
-    !isLoading && products.filter((el) => el.category === subcategory);
-  filterProducts && filterProducts.map((el) => {});
+  const filterAndSortProducts = (optionElement) => {
+    const filterProducts = products.filter((el) => el.category === subcategory);
+    const sortedProducts = [];
+    filterProducts.forEach((el) => {
+      const alreadyAddedIndex = sortedProducts.findIndex(
+        (product) => product.uid === el.uid
+      );
+      if (alreadyAddedIndex === -1) {
+        sortedProducts.push(el);
+      } else {
+        // Find existing product and make a copy as it have read-only opt property
+        const existingItem = Object.assign(
+          {},
+          sortedProducts[alreadyAddedIndex]
+        );
+        sortedProducts.splice(alreadyAddedIndex, 1);
+        Array.isArray(existingItem.opt)
+          ? existingItem.opt.push({ opt: el.opt, barcode: el.barcode })
+          : (existingItem.opt = [
+              { opt: existingItem.opt, barcode: existingItem.barcode },
+              { opt: el.opt, barcode: el.barcode },
+            ]);
+        sortedProducts.push(existingItem);
+      }
+    });
+    dispatch(setSortedProducts(sortedProducts));
+    // return sortedProducts;
+  };
+  useEffect(() => {
+    dispatch(setIsLoading(true));
+    filterAndSortProducts();
+  }, []);
+
+  const handleChangeOpt = (barcode, imageRef, sku) => {
+    const requestedEl = products.find((el) => el.barcode === barcode);
+    imageRef.current.src =
+      "https://zoougolok.com.ua/upload/iblock/" + requestedEl.barcode + ".jpg";
+    dispatch(sortRequestedProducts({ requestedEl, sku }));
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -32,16 +79,20 @@ const ProductList = () => {
         <>
           <h2>Product List</h2>
           <div className="productWrapper">
-            {filterProducts.map(
-              ({ brand, count, name, opt, price, barcode }) => {
+            {requestedProducts.map(
+              ({ brand, count, name, opt, price, barcode, uid, sku }) => {
                 return (
                   <ProductItem
+                    key={barcode}
                     brand={brand}
                     count={count}
                     name={name}
                     opt={opt}
                     price={price}
                     barcode={barcode}
+                    uid={uid}
+                    sku={sku}
+                    handleChangeOpt={handleChangeOpt}
                   />
                 );
               }
