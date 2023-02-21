@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./ProductItem.css";
 import Button from "../Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart, deleteProductFromCart } from "../../store/cart/cart";
 
 const ProductItem = ({
   brand,
@@ -14,7 +16,9 @@ const ProductItem = ({
   handleChangeOpt,
 }) => {
   const imageRef = useRef(null);
-
+  const cart = useSelector((state) => state.cart.shoppingCart);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.catalogue.catalogueProducts);
   return (
     <div className="productItemWrapper">
       <div className="productImageWrapper">
@@ -27,26 +31,67 @@ const ProductItem = ({
           }}
         />
       </div>
-      <div>
-        {opt.map((el) => (
-          <p
-            data-id={el.barcode}
-            onClick={(e) => handleChangeOpt(e.target.dataset.id, imageRef, sku)}
-          >
-            {el.opt}
-          </p>
-        ))}
-      </div>
+
       <div style={{ maxWidth: "150px" }}>
         <h2>{name}</h2>
       </div>
       <p>Available Qty: {count}</p>
       <p>{price} UAH</p>
-      {count === 0 ? (
-        <Button disabled>Немає в наявності</Button>
-      ) : (
-        <Button>У кошик</Button>
-      )}
+      <div>
+        {opt.map((el) => {
+          const inCart = cart.find((item) => item.barcode === el.barcode);
+          console.log(inCart);
+          return (
+            <>
+              <p
+                data-id={el.barcode}
+                onClick={(e) => {
+                  handleChangeOpt(e.target.dataset.id, imageRef, sku);
+                }}
+              >
+                {el.opt}
+              </p>
+              {!inCart && (
+                <Button
+                  onClick={() => {
+                    const findProduct = products.find(
+                      (item) => item.barcode === el.barcode
+                    );
+                    dispatch(addProductToCart(findProduct));
+                  }}
+                >
+                  У кошик
+                </Button>
+              )}
+              {inCart && (
+                <>
+                  <Button
+                    onClick={() => {
+                      const findProduct = products.find(
+                        (item) => item.barcode === el.barcode
+                      );
+                      dispatch(deleteProductFromCart(findProduct));
+                    }}
+                  >
+                    -
+                  </Button>
+                  {inCart.orderedQty}
+                  <Button
+                    onClick={() => {
+                      const findProduct = products.find(
+                        (item) => item.barcode === el.barcode
+                      );
+                      dispatch(addProductToCart(findProduct));
+                    }}
+                  >
+                    +
+                  </Button>
+                </>
+              )}
+            </>
+          );
+        })}
+      </div>
     </div>
   );
 };

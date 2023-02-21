@@ -39,23 +39,30 @@ const ProductList = () => {
         (product) => product.uid === el.uid
       );
       if (alreadyAddedIndex === -1) {
-        sortedProducts.push(el);
+        // Find existing product and make a copy as it have read-only opt property
+        const item = Object.assign({}, el);
+        // Do an opt option to be an array of objects
+        item.opt = [{ opt: item.opt, barcode: item.barcode }];
+        sortedProducts.push(item);
       } else {
         // Find existing product and make a copy as it have read-only opt property
+
         const existingItem = Object.assign(
           {},
           sortedProducts[alreadyAddedIndex]
         );
         sortedProducts.splice(alreadyAddedIndex, 1);
-        Array.isArray(existingItem.opt)
-          ? existingItem.opt.push({ opt: el.opt, barcode: el.barcode })
-          : (existingItem.opt = [
-              { opt: existingItem.opt, barcode: existingItem.barcode },
-              { opt: el.opt, barcode: el.barcode },
-            ]);
+        existingItem.opt.push({ opt: el.opt, barcode: el.barcode });
         sortedProducts.push(existingItem);
       }
     });
+    // Sort options
+    sortedProducts.forEach((el) => {
+      el.opt.sort((a, b) => a.opt.localeCompare(b.opt));
+    });
+
+    // Sort products Array
+    sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
     dispatch(setSortedProducts(sortedProducts));
     // return sortedProducts;
   };

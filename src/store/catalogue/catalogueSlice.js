@@ -108,7 +108,7 @@ const catalogueSlice = createSlice({
 
 export const {
   setCatalogueProducts,
-  addProductToCart,
+  // addProductToCart,
   setIsLoading,
   incrementCategoryLevel,
   setCategoryLevel,
