@@ -26,8 +26,10 @@ const RootCatalogue = () => {
   const isLoading = useSelector((state) => state.catalogue.isLoading);
 
   useEffect(() => {
-    dispatch(setIsLoading(true));
-    dispatch(getCatalogueCategories(params.id));
+    if (categories.length === 0) {
+      dispatch(setIsLoading(true));
+      dispatch(getCatalogueCategories(params.id));
+    }
   }, []);
 
   const categoryComponent = () => {
