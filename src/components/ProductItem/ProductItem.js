@@ -37,13 +37,16 @@ const ProductItem = ({
       </div>
       <p>Available Qty: {count}</p>
       <p>{price} UAH</p>
-      <div>
+      <div className="propsWrapper">
         {opt.map((el) => {
           const inCart = cart.find((item) => item.barcode === el.barcode);
-          console.log(inCart);
+          const inStock = products.find(
+            (product) => product.barcode === el.barcode
+          );
           return (
-            <>
+            <div className="productProps">
               <p
+                className="productOpt"
                 data-id={el.barcode}
                 onClick={(e) => {
                   handleChangeOpt(e.target.dataset.id, imageRef, sku);
@@ -51,7 +54,56 @@ const ProductItem = ({
               >
                 {el.opt}
               </p>
-              {!inCart && (
+              {inStock.count === 0 && (
+                <Button className="addToCartBtn" disabled>
+                  Відсутній
+                </Button>
+              )}
+              {inStock.count !== 0 && !inCart && (
+                <Button
+                  className="addToCartBtn"
+                  data-id={el.barcode}
+                  onClick={(e) => {
+                    const findProduct = products.find(
+                      (item) => item.barcode === el.barcode
+                    );
+                    dispatch(addProductToCart(findProduct));
+                    handleChangeOpt(e.target.dataset.id, imageRef, sku);
+                  }}
+                >
+                  У кошик
+                </Button>
+              )}
+              {inStock.count !== 0 && inCart && (
+                <>
+                  <Button
+                    data-id={el.barcode}
+                    onClick={(e) => {
+                      const findProduct = products.find(
+                        (item) => item.barcode === el.barcode
+                      );
+                      dispatch(deleteProductFromCart(findProduct));
+                      handleChangeOpt(e.target.dataset.id, imageRef, sku);
+                    }}
+                  >
+                    -
+                  </Button>
+                  <p className="ordererQty">{inCart.orderedQty}</p>
+                  <Button
+                    data-id={el.barcode}
+                    onClick={(e) => {
+                      const findProduct = products.find(
+                        (item) => item.barcode === el.barcode
+                      );
+                      dispatch(addProductToCart(findProduct));
+                      handleChangeOpt(e.target.dataset.id, imageRef, sku);
+                    }}
+                  >
+                    +
+                  </Button>
+                </>
+              )}
+              {/* {!inCart && (
                 <Button
                   onClick={() => {
                     const findProduct = products.find(
@@ -87,8 +139,8 @@ const ProductItem = ({
                     +
                   </Button>
                 </>
-              )}
-            </>
+              )} */}
+            </div>
           );
         })}
       </div>

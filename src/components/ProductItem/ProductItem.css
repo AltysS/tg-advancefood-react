@@ -5,9 +5,35 @@
     justify-content: center;
     align-items: center;
     border: 1px solid black;
+    max-width: 160px;
+    text-align: center;
+    height: fit-content;
+}
+
+.propsWrapper {
+    width: 100%;
 }
 
 .productImage {
     max-width: 150px;
     max-height: 150px;
+}
+
+.productOpt {
+    border: 1px solid black;
+    width: 70px;
+}
+.productProps {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 10px;
+}
+
+.addToCartBtn {
+    width: 70px;
+}
+
+.ordererQty {
+    align-self: center;
 }

@@ -11,6 +11,7 @@ import "./Header.css";
 import BurgerMenu from "./images/BurgerMenu";
 import CloseMenu from "./images/CloseMenu";
 import Logo from "./images/Logo";
+import CartImage from "./images/CartImage";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,12 @@ const Header = () => {
           })}
         </div>
       )}
+      <div
+        onClick={() => navigate("/cart")}
+        style={{ width: "20px", height: "20px" }}
+      >
+        <CartImage />
+      </div>
     </header>
   );
 };
