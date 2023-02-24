@@ -24,17 +24,19 @@ const ProductList = () => {
     shallowEqual
   );
 
-  const { subcategory } = useParams();
+  const params = useParams();
   useEffect(() => {
     if (products.length === 0) {
       dispatch(setIsLoading(true));
-      dispatch(getCatalogueCategories());
+      dispatch(getCatalogueCategories(params));
     }
     dispatch(cartHasUnmanagedProducts());
   }, []);
 
   const filterAndSortProducts = (optionElement) => {
-    const filterProducts = products.filter((el) => el.category === subcategory);
+    const filterProducts = products.filter(
+      (el) => el.category === params.subcategory
+    );
     const sortedProducts = [];
     filterProducts.forEach((el) => {
       const alreadyAddedIndex = sortedProducts.findIndex(

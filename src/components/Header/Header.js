@@ -5,7 +5,7 @@ import {
   setCategoryLevel,
   toggleIsMenuOpen,
 } from "../../store/catalogue/catalogueSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BurgerMenuItems from "./BurgerMenu/BurgerMenu";
 import "./Header.css";
 import CartImage from "./images/CartImage";
@@ -17,6 +17,7 @@ const Header = () => {
     (state) => state.catalogue.catalogueCategories[0]
   );
   const isMenuOpen = useSelector((state) => state.catalogue.isMenuOpen);
+
   return (
     <header>
       <BurgerMenuItems />
@@ -29,12 +30,10 @@ const Header = () => {
                   dispatch(setCategoryLevel(1));
                   dispatch(setCategoryID(el.id));
                   dispatch(toggleIsMenuOpen());
-                  navigate(`${el.id}`);
+                  navigate(`${el.id}`, { replace: true });
                 }}
               >
-                <a className="menuItem" href="#">
-                  {el.name}
-                </a>
+                <p className="menuItem">{el.name}</p>
               </div>
             );
           })}

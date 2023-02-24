@@ -45,8 +45,14 @@ const RootCatalogue = () => {
     }
   }, [params]);
 
+  const formImageLink = (id) => {
+    let imageLink = id.toString();
+    const neededSymbols = 9 - imageLink.length;
+    imageLink = "0".repeat(neededSymbols) + imageLink + ".jpg";
+    return imageLink;
+  };
+
   const categoryComponent = () => {
-    console.log("render");
     let JSX;
     const filteredArr =
       categoryID &&
@@ -69,18 +75,27 @@ const RootCatalogue = () => {
                       return el.child_categories[0] === id;
                     });
                   if (!hasChildCategory) {
-                    navigate(`/products/${params.id}/${id}`);
+                    navigate(`/products/${params.id}/${id}`, { replace: true });
                   } else {
                     dispatch(incrementCategoryLevel(id));
-                    navigate(`${id}`);
+                    navigate(`${id}`, { replace: true });
                   }
                 }}
                 className="categoryContainer"
               >
                 <div>
-                  <img src="https://detta.com.ua/upload/iblock/689/000000005.jpg" />
+                  <img
+                    style={{ height: "150px" }}
+                    src={
+                      "https://detta.com.ua/sections_img/" + formImageLink(id)
+                    }
+                    onError={(e) => {
+                      e.target.src =
+                        "https://zoougolok.com.ua/nopic/default.png";
+                    }}
+                  />
                 </div>
-                <a href="#">{name}</a>
+                <p>{name}</p>
               </div>
             );
           })}
@@ -90,19 +105,29 @@ const RootCatalogue = () => {
       JSX = !isLoading && (
         <div className="categoriesWrapper">
           {categories[categoryLevel].map(({ id, name }) => {
+            formImageLink(id);
             return (
               <div
                 key={id}
                 onClick={() => {
                   dispatch(incrementCategoryLevel(id));
-                  navigate(`${id}`);
+                  navigate(`${id}`, { replace: true });
                 }}
                 className="categoryContainer"
               >
                 <div>
-                  <img src="https://detta.com.ua/upload/iblock/689/000000005.jpg" />
+                  <img
+                    style={{ height: "150px" }}
+                    src={
+                      "https://detta.com.ua/sections_img/" + formImageLink(id)
+                    }
+                    onError={(e) => {
+                      e.target.src =
+                        "https://zoougolok.com.ua/nopic/default.png";
+                    }}
+                  />
                 </div>
-                <a href="#">{name}</a>
+                <p>{name}</p>
               </div>
             );
           })}
@@ -110,7 +135,7 @@ const RootCatalogue = () => {
       );
     }
     JSX.props.children.length === 0 &&
-      navigate(`/products/${categoryID}/${categoryID}`);
+      navigate(`/products/${categoryID}/${categoryID}`, { replace: true });
     return JSX;
   };
 
@@ -120,7 +145,7 @@ const RootCatalogue = () => {
       <Button
         disabled={isLoading && true}
         onClick={() => {
-          navigate("/");
+          navigate("/", { replace: true });
           dispatch(setCategoryLevel(0));
           dispatch(setCategoryID(null));
         }}
