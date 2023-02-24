@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { cartHasUnmanagedProducts } from "../../store/cart/cart";
 import {
   getCatalogueCategories,
   setIsLoading,
@@ -29,6 +30,7 @@ const ProductList = () => {
       dispatch(setIsLoading(true));
       dispatch(getCatalogueCategories());
     }
+    dispatch(cartHasUnmanagedProducts());
   }, []);
 
   const filterAndSortProducts = (optionElement) => {

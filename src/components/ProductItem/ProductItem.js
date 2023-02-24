@@ -80,6 +80,7 @@ const ProductItem = ({
               {inStock.count !== 0 && inCart && (
                 <>
                   <Button
+                    className="incrementAndDecrementButtons"
                     data-id={el.barcode}
                     onClick={(e) => {
                       const findProduct = products.find(
@@ -93,6 +94,7 @@ const ProductItem = ({
                   </Button>
                   <p className="ordererQty">{inCart.orderedQty}</p>
                   <Button
+                    className="incrementAndDecrementButtons"
                     data-id={el.barcode}
                     onClick={(e) => {
                       const findProduct = products.find(

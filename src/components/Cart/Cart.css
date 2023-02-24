@@ -14,10 +14,15 @@
 
 .cartProductQty {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    padding-top: 20px;
+    align-items: center;
 }
 
 .cartProductImage {
     max-height: 50px;
+}
+
+.incrementAndDecrementButtons {
+    padding: 5px;
 }

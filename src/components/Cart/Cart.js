@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cartHasUnmanagedProducts,
   decrementCartProduct,
   deleteAllProducts,
   incrementCartProduct,
@@ -12,6 +13,10 @@ import DeleteFromCartIMG from "./images/deleteFromCartIMG";
 const Cart = () => {
   const productInCart = useSelector((state) => state.cart.shoppingCart);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(cartHasUnmanagedProducts());
+  }, []);
   return (
     <>
       {productInCart.length === 0 ? (
@@ -47,6 +52,7 @@ const Cart = () => {
                     <div className="cartProductQty">
                       <p>{price}</p>
                       <Button
+                        className="incrementAndDecrementButtons"
                         onClick={() => {
                           dispatch(decrementCartProduct(barcode));
                         }}
@@ -55,6 +61,7 @@ const Cart = () => {
                       </Button>
                       <p>{orderedQty}</p>
                       <Button
+                        className="incrementAndDecrementButtons"
                         onClick={() => {
                           dispatch(incrementCartProduct(barcode));
                         }}
@@ -65,12 +72,17 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <div></div>
               </div>
             );
           })}
         </>
       )}
+      <div>
+        Сумма замовлення:{" "}
+        {productInCart.reduce((acc, el) => acc + el.price * el.orderedQty, 0)}{" "}
+        UAH
+      </div>
+      <Button>Замовити</Button>
     </>
   );
 };
