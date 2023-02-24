@@ -23,6 +23,12 @@
     border: 1px solid black;
     width: 70px;
 }
+
+.active {
+    background-color: greenyellow;
+    border: 1px solid black;
+    width: 70px;
+}
 .productProps {
     display: flex;
     justify-content: space-between;

@@ -6,6 +6,28 @@ const cartSlice = createSlice({
     shoppingCart: [],
   },
   reducers: {
+    deleteAllProducts: (state, action) => {
+      const findProductIndex = state.shoppingCart.findIndex(
+        (el) => el.barcode === action.payload
+      );
+      state.shoppingCart.splice(findProductIndex, 1);
+    },
+    incrementCartProduct: (state, action) => {
+      const findProductIndex = state.shoppingCart.findIndex(
+        (el) => el.barcode === action.payload
+      );
+      state.shoppingCart[findProductIndex].orderedQty += 1;
+    },
+    decrementCartProduct: (state, action) => {
+      const findProductIndex = state.shoppingCart.findIndex(
+        (el) => el.barcode === action.payload
+      );
+      if (state.shoppingCart[findProductIndex].orderedQty === 1) {
+        state.shoppingCart.splice(findProductIndex, 1);
+      } else {
+        state.shoppingCart[findProductIndex].orderedQty -= 1;
+      }
+    },
     addProductToCart: (state, action) => {
       const findIndex = state.shoppingCart.findIndex(
         (el) => el.barcode === action.payload.barcode
@@ -29,6 +51,12 @@ const cartSlice = createSlice({
     },
   },
 });
-export const { addProductToCart, deleteProductFromCart } = cartSlice.actions;
+export const {
+  addProductToCart,
+  deleteProductFromCart,
+  incrementCartProduct,
+  decrementCartProduct,
+  deleteAllProducts,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -46,7 +46,7 @@ const ProductItem = ({
           return (
             <div className="productProps">
               <p
-                className="productOpt"
+                className={el.barcode === barcode ? "active" : "productOpt"}
                 data-id={el.barcode}
                 onClick={(e) => {
                   handleChangeOpt(e.target.dataset.id, imageRef, sku);
@@ -103,43 +103,6 @@ const ProductItem = ({
                   </Button>
                 </>
               )}
-              {/* {!inCart && (
-                <Button
-                  onClick={() => {
-                    const findProduct = products.find(
-                      (item) => item.barcode === el.barcode
-                    );
-                    dispatch(addProductToCart(findProduct));
-                  }}
-                >
-                  У кошик
-                </Button>
-              )}
-              {inCart && (
-                <>
-                  <Button
-                    onClick={() => {
-                      const findProduct = products.find(
-                        (item) => item.barcode === el.barcode
-                      );
-                      dispatch(deleteProductFromCart(findProduct));
-                    }}
-                  >
-                    -
-                  </Button>
-                  {inCart.orderedQty}
-                  <Button
-                    onClick={() => {
-                      const findProduct = products.find(
-                        (item) => item.barcode === el.barcode
-                      );
-                      dispatch(addProductToCart(findProduct));
-                    }}
-                  >
-                    +
-                  </Button>
-                </>
-              )} */}
             </div>
           );
         })}
