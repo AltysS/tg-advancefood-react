@@ -11,10 +11,10 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="catalogue/" element={<RootCatalogue />} />
-        <Route path="catalogue/:id/" element={<RootCatalogue />} />
-        <Route path="catalogue/:id/:childID" element={<RootCatalogue />} />
+        {/* <Route index element={<HomePage />} /> */}
+        <Route index element={<RootCatalogue />} />
+        <Route path=":id/" element={<RootCatalogue />} />
+        <Route path=":id/:childID" element={<RootCatalogue />} />
         <Route
           path="products/:category/:subcategory"
           element={<ProductList />}
