@@ -13,8 +13,8 @@ const AppRoutes = () => {
       <Route path="/" element={<AppLayout />}>
         {/* <Route index element={<HomePage />} /> */}
         <Route index element={<RootCatalogue />} />
-        <Route path=":id/" element={<RootCatalogue />} />
-        <Route path=":id/:childID" element={<RootCatalogue />} />
+        <Route path="/:id" element={<RootCatalogue />} />
+        <Route path="/:id/:childID" element={<RootCatalogue />} />
         <Route
           path="products/:category/:subcategory"
           element={<ProductList />}

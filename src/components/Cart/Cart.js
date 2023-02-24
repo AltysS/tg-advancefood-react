@@ -6,13 +6,28 @@ import {
   deleteAllProducts,
   incrementCartProduct,
 } from "../../store/cart/cart";
+import {
+  getCatalogueCategories,
+  setIsLoading,
+} from "../../store/catalogue/catalogueSlice";
 import Button from "../Button/Button";
 import "./Cart.css";
 import DeleteFromCartIMG from "./images/deleteFromCartIMG";
 
 const Cart = () => {
   const productInCart = useSelector((state) => state.cart.shoppingCart);
+  const categories = useSelector(
+    (state) => state.catalogue.catalogueCategories
+  );
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (categories.length === 0) {
+      dispatch(setIsLoading(true));
+      dispatch(getCatalogueCategories());
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(cartHasUnmanagedProducts());

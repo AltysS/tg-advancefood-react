@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getCatalogueCategories = createAsyncThunk(
   "fetchCatalogueCategories",
-  async (paramsID, { rejectWithValue }) => {
+  async (params, { rejectWithValue }) => {
     try {
       const data = await fetch(
         "https://b2b.detta.com.ua/api/hs/v3/get-products-shop",
@@ -14,7 +14,7 @@ export const getCatalogueCategories = createAsyncThunk(
           },
         }
       ).then((data) => data.json());
-      return { data, paramsID };
+      return { data, params };
     } catch (err) {
       rejectWithValue(err);
     }
@@ -48,6 +48,9 @@ const catalogueSlice = createSlice({
       state.requestedProducts = action.payload;
       state.isLoading = false;
     },
+    setIsMenuOpen: (state, action) => {
+      state.isMenuOpen = action.payload;
+    },
     toggleIsMenuOpen: (state) => {
       state.isMenuOpen = !state.isMenuOpen;
     },
@@ -71,20 +74,16 @@ const catalogueSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    addProductToCart: (state, action) => {
-      state.catalogueProducts = state.catalogueProducts.map((el) => {
-        if (el.id === action.payload.id) {
-          return (el.orderedQty += 1);
-        }
-      });
-    },
   },
   extraReducers(builder) {
     builder.addCase(getCatalogueCategories.fulfilled, (state, action) => {
-      const hasParams = action.payload?.paramsID;
-      if (hasParams) {
+      const hasParams = action.payload.params;
+      if (hasParams.childID) {
+        state.categoryLevel = 2;
+        state.categoryID = hasParams.childID;
+      } else if (hasParams.id) {
         state.categoryLevel = 1;
-        state.categoryID = hasParams;
+        state.categoryID = hasParams.id;
       }
 
       const { categories, products } = action.payload.data;
@@ -118,6 +117,7 @@ export const {
   setRequestedProducts,
   setSortedProducts,
   sortRequestedProducts,
+  setIsMenuOpen,
 } = catalogueSlice.actions;
 
 export default catalogueSlice.reducer;

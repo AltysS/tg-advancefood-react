@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCategoryID,
@@ -8,9 +8,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import BurgerMenuItems from "./BurgerMenu/BurgerMenu";
 import "./Header.css";
-import BurgerMenu from "./images/BurgerMenu";
-import CloseMenu from "./images/CloseMenu";
-import Logo from "./images/Logo";
 import CartImage from "./images/CartImage";
 
 const Header = () => {
@@ -32,7 +29,7 @@ const Header = () => {
                   dispatch(setCategoryLevel(1));
                   dispatch(setCategoryID(el.id));
                   dispatch(toggleIsMenuOpen());
-                  navigate(`/catalogue/${el.id}`);
+                  navigate(`${el.id}`);
                 }}
               >
                 <a className="menuItem" href="#">

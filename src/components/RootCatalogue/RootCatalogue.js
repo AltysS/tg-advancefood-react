@@ -28,11 +28,25 @@ const RootCatalogue = () => {
   useEffect(() => {
     if (categories.length === 0) {
       dispatch(setIsLoading(true));
-      dispatch(getCatalogueCategories(params.id));
+      dispatch(getCatalogueCategories(params));
     }
   }, []);
 
+  useEffect(() => {
+    if (params.childID) {
+      dispatch(setCategoryLevel(2));
+      dispatch(setCategoryID(params.childID));
+    } else if (params.id) {
+      dispatch(setCategoryLevel(1));
+      dispatch(setCategoryID(params.id));
+    } else {
+      dispatch(setCategoryLevel(0));
+      dispatch(setCategoryID(null));
+    }
+  }, [params]);
+
   const categoryComponent = () => {
+    console.log("render");
     let JSX;
     const filteredArr =
       categoryID &&
@@ -54,7 +68,6 @@ const RootCatalogue = () => {
                     categories[categoryLevel + 1].find((el) => {
                       return el.child_categories[0] === id;
                     });
-                  console.log(hasChildCategory);
                   if (!hasChildCategory) {
                     navigate(`/products/${params.id}/${id}`);
                   } else {
