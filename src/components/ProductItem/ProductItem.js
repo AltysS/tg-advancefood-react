@@ -45,15 +45,18 @@ const ProductItem = ({
           );
           return (
             <div className="productProps">
-              <p
-                className={el.barcode === barcode ? "active" : "productOpt"}
-                data-id={el.barcode}
-                onClick={(e) => {
-                  handleChangeOpt(e.target.dataset.id, imageRef, sku);
-                }}
-              >
-                {el.opt}
-              </p>
+              <div className="productOptWrapper">
+                <p
+                  className={el.barcode === barcode ? "active" : "productOpt"}
+                  data-id={el.barcode}
+                  onClick={(e) => {
+                    handleChangeOpt(e.target.dataset.id, imageRef, sku);
+                  }}
+                >
+                  {el.opt}
+                </p>
+              </div>
+
               {inStock.count === 0 && (
                 <Button className="addToCartBtn" disabled>
                   Відсутній

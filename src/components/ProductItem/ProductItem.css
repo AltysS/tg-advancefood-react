@@ -22,24 +22,40 @@
 .productOpt {
     border: 1px solid black;
     width: 70px;
+    min-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .active {
     background-color: greenyellow;
     border: 1px solid black;
     width: 70px;
+    min-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .productProps {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     padding-top: 10px;
+    align-items: center;
 }
 
 .addToCartBtn {
     width: 70px;
+    height: 30px;
 }
 
 .ordererQty {
     align-self: center;
+}
+
+.productOptWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
