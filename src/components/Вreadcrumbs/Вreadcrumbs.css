@@ -18,3 +18,9 @@
 .breadcrumbsItemLink {
     list-style: none;
 }
+
+/* .breadcrumbsItemLinkDisabled {
+    color: gray;
+    pointer-events: none;
+    text-decoration: none;
+} */

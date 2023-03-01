@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   setCategoryID,
   setCategoryLevel,
@@ -38,7 +38,7 @@ const Вreadcrumbs = ({
           categories[i].find((el) => {
             if (el.id === Number(childCategory)) {
               childCategory = el.child_categories[0];
-              console.log(el);
+              console.log("HEREEE");
               categoryArr.push({
                 categoryLVL: i === 1 ? 2 : 1,
                 categoryID: el.id,
@@ -50,20 +50,33 @@ const Вreadcrumbs = ({
         }
       }
       categoryArr.reverse();
-      return categoryArr.map((el) => (
-        <li className="breadcrumbsItemContainer">
-          <a
-            className="breadcrumbsItemLink"
-            onClick={() => {
-              dispatch(setCategoryLevel(el.categoryLVL));
-              dispatch(setCategoryID(el.categoryID));
-              navigate(`${el.link}`, { replace: true });
-            }}
-          >
-            {el.name}
-          </a>
-        </li>
-      ));
+      // Find LastIndexEl to disable the Link
+      // There is a bug if delete this check for last-child. The link navigate to a wrong place once clicked 2 times
+      const lastIndex = categoryArr.length - 1;
+
+      return categoryArr.map((el, index) => {
+        if (index === lastIndex) {
+          return (
+            <li className="breadcrumbsItemContainer">
+              <a className="breadcrumbsItemLink">{el.name}</a>
+            </li>
+          );
+        }
+        return (
+          <li className="breadcrumbsItemContainer">
+            <a
+              className="breadcrumbsItemLink"
+              onClick={() => {
+                dispatch(setCategoryLevel(el.categoryLVL));
+                dispatch(setCategoryID(el.categoryID));
+                navigate(`${el.link}`, { replace: true });
+              }}
+            >
+              {el.name}
+            </a>
+          </li>
+        );
+      });
     } else if (childID) {
       const category = categories[0].find((el) => el.id === Number(params.id));
 
