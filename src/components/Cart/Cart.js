@@ -43,6 +43,7 @@ const Cart = () => {
               <div>
                 <div className="productCartWrapper">
                   <div
+                    className="productCartDeleteBtn"
                     onClick={() => {
                       dispatch(deleteAllProducts(barcode));
                     }}

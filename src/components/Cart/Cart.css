@@ -3,7 +3,9 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    padding: 10px 10px 10px 10px;
+    box-shadow: rgba(40, 80, 82, 0.25) 0px 14px 28px, rgba(40, 80, 82, 0.22) 0px 10px 10px;
 }
 
 .cartProducName {
@@ -18,9 +20,16 @@
 }
 
 .cartProductImage {
-    max-height: 50px;
+    max-height: 80px;
+    max-width: 80px;
+    margin-right: 20px;
 }
 
 .incrementAndDecrementButtons {
     padding: 5px;
+}
+
+.productCartDeleteBtn {
+    margin-left: 20px;
+    margin-right: 20px;
 }
