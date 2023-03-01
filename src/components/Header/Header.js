@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setCategoryID,
   setCategoryLevel,
+  setIsMenuOpen,
   toggleIsMenuOpen,
 } from "../../store/catalogue/catalogueSlice";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -25,7 +26,14 @@ const Header = () => {
         ? document.body.classList.add("toggleScroll")
         : document.body.classList.remove("toggleScroll")}
       {isMenuOpen && (
-        <div className="menuContainer">
+        <div
+          onClick={(e) => {
+            if (e.target.closest("div").className === "menuContainer") {
+              dispatch(setIsMenuOpen());
+            }
+          }}
+          className="menuContainer"
+        >
           <div className="menuList">
             {categories.map((el) => {
               return (
