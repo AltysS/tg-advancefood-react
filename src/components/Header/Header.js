@@ -17,6 +17,7 @@ const Header = () => {
   const categories = useSelector(
     (state) => state.catalogue.catalogueCategories[0]
   );
+  const isLoading = useSelector((state) => state.catalogue.isLoading);
   const isMenuOpen = useSelector((state) => state.catalogue.isMenuOpen);
 
   return (
@@ -53,7 +54,11 @@ const Header = () => {
         </div>
       )}
       <div
-        onClick={() => navigate("/cart")}
+        onClick={() => {
+          if (!isLoading) {
+            navigate("/cart");
+          }
+        }}
         style={{ width: "20px", height: "20px" }}
       >
         <CartImage />
