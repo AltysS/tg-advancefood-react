@@ -2,6 +2,18 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 35px;
     text-align: center;
+}
+
+.categoryContainer {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 20px;
+}
+
+.categoryImage {
+    padding: 10px;
+    height: 150px;
+    display: block;
+    border-radius: 15px;
 }

@@ -119,6 +119,7 @@ const RootCatalogue = () => {
               >
                 <div>
                   <img
+                    className="categoryImage"
                     style={{ height: "150px" }}
                     src={
                       "https://detta.com.ua/sections_img/" + formImageLink(id)
