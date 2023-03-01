@@ -10,6 +10,7 @@ import {
   setIsLoading,
 } from "../../store/catalogue/catalogueSlice";
 import Button from "../Button/Button";
+import Вreadcrumbs from "../Вreadcrumbs/Вreadcrumbs";
 
 import "./RootCatalogue.css";
 
@@ -141,17 +142,13 @@ const RootCatalogue = () => {
 
   return (
     <div>
-      <Button>Choose category</Button>
-      <Button
-        disabled={isLoading && true}
-        onClick={() => {
-          navigate("/", { replace: true });
-          dispatch(setCategoryLevel(0));
-          dispatch(setCategoryID(null));
-        }}
-      >
-        Main
-      </Button>
+      <Вreadcrumbs
+        categoryLevel={categoryLevel}
+        categoryID={categoryID}
+        categories={categories}
+        isLoading={isLoading}
+        params={params}
+      />
       {/* <Button
         disabled={categoryLevel === 0 && true}
         onClick={() => {

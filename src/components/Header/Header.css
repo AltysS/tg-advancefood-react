@@ -4,7 +4,7 @@ header {
     display: flex;
     align-items: center;
     padding: 0 20px;
-    background-color: rgb(4, 120, 4);
+    background-color: rgb(40, 80, 82);
     position: relative;
     position: fixed;
     top: 0;
@@ -12,18 +12,42 @@ header {
     justify-content: space-between;
 }
 
+.menuContainer {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .menuList {
     position: absolute;
-    left: 30px;
-    top: 50px;
+    left: 0;
+    top: 0;
     border: 1px solid black;
     background-color: white;
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 15px;
+    animation: slideIn 0.5s forwards;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
 .menuItem {
     text-decoration: none;
+}
+
+.toggleScroll {
+    overflow: hidden;
 }

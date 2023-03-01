@@ -1,0 +1,20 @@
+.breadcrumbsWrapper {
+    display: flex;
+    gap: 20px;
+    color: blue;
+    padding: 5%;
+}
+
+.breadcrumbsItemList {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.breadcrumbsItemContainer {
+    cursor: pointer;
+}
+
+.breadcrumbsItemLink {
+    list-style: none;
+}

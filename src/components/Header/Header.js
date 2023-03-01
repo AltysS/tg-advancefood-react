@@ -21,22 +21,27 @@ const Header = () => {
   return (
     <header>
       <BurgerMenuItems />
+      {isMenuOpen
+        ? document.body.classList.add("toggleScroll")
+        : document.body.classList.remove("toggleScroll")}
       {isMenuOpen && (
-        <div className="menuList">
-          {categories.map((el) => {
-            return (
-              <div
-                onClick={() => {
-                  dispatch(setCategoryLevel(1));
-                  dispatch(setCategoryID(el.id));
-                  dispatch(toggleIsMenuOpen());
-                  navigate(`${el.id}`, { replace: true });
-                }}
-              >
-                <p className="menuItem">{el.name}</p>
-              </div>
-            );
-          })}
+        <div className="menuContainer">
+          <div className="menuList">
+            {categories.map((el) => {
+              return (
+                <div
+                  onClick={() => {
+                    dispatch(setCategoryLevel(1));
+                    dispatch(setCategoryID(el.id));
+                    dispatch(toggleIsMenuOpen());
+                    navigate(`${el.id}`, { replace: true });
+                  }}
+                >
+                  <p className="menuItem">{el.name}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
       <div

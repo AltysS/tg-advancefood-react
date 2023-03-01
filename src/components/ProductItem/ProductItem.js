@@ -32,7 +32,13 @@ const ProductItem = ({
         />
       </div>
 
-      <div style={{ maxWidth: "150px" }}>
+      <div
+        style={{
+          maxWidth: "150px",
+          padding: "1px",
+          overflowWrap: "break-word",
+        }}
+      >
         <h2>{name}</h2>
       </div>
       <p>Available Qty: {count}</p>

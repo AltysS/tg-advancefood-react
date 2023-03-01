@@ -16,7 +16,7 @@
 
 .productImage {
     max-width: 150px;
-    height: 150px;
+    height: inherit;
 }
 
 .productOpt {
@@ -55,6 +55,12 @@
 
 .productOptWrapper {
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.productImageWrapper {
+    display: flex;
+    height: 150px;
     justify-content: center;
     align-items: center;
 }

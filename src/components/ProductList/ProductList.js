@@ -4,12 +4,16 @@ import { useParams } from "react-router-dom";
 import { cartHasUnmanagedProducts } from "../../store/cart/cart";
 import {
   getCatalogueCategories,
+  setCategoryID,
+  setCategoryLevel,
   setIsLoading,
   setRequestedProducts,
   setSortedProducts,
   sortRequestedProducts,
 } from "../../store/catalogue/catalogueSlice";
 import ProductItem from "../ProductItem/ProductItem";
+import Вreadcrumbs from "../Вreadcrumbs/Вreadcrumbs";
+
 import "./ProductList.css";
 
 const ProductList = () => {
@@ -23,6 +27,9 @@ const ProductList = () => {
     (state) => state.catalogue.requestedProducts,
     shallowEqual
   );
+  const categories = useSelector(
+    (state) => state.catalogue.catalogueCategories
+  );
 
   const params = useParams();
   useEffect(() => {
@@ -30,6 +37,8 @@ const ProductList = () => {
       dispatch(setIsLoading(true));
       dispatch(getCatalogueCategories(params));
     }
+    dispatch(setCategoryLevel(2));
+    dispatch(setCategoryID(params.subcategory));
     dispatch(cartHasUnmanagedProducts());
   }, []);
 
@@ -89,6 +98,14 @@ const ProductList = () => {
       ) : (
         <>
           <h2>Product List</h2>
+          <Вreadcrumbs
+            categoryLevel={2}
+            calledFromProductList={true}
+            // categoryID={categoryID}
+            categories={categories}
+            isLoading={isLoading}
+            params={params}
+          />
           <div className="productWrapper">
             {requestedProducts.map(
               ({ brand, count, name, opt, price, barcode, uid, sku }) => {
