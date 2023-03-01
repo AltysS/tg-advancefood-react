@@ -64,7 +64,11 @@ const ProductItem = ({
               </div>
 
               {inStock.count === 0 && (
-                <Button className="addToCartBtn" disabled>
+                <Button
+                  className="addToCartBtn"
+                  disabled
+                  style={{ color: "grey" }}
+                >
                   Відсутній
                 </Button>
               )}
