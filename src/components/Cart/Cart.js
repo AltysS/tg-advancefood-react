@@ -49,18 +49,21 @@ const Cart = () => {
                   >
                     <DeleteFromCartIMG />
                   </div>
-                  <img
-                    className="cartProductImage"
-                    src={
-                      "https://zoougolok.com.ua/upload/iblock/" +
-                      barcode +
-                      ".jpg"
-                    }
-                    onError={(e) => {
-                      e.target.src =
-                        "https://zoougolok.com.ua/nopic/default.png";
-                    }}
-                  />
+                  <div>
+                    <img
+                      className="cartProductImage"
+                      src={
+                        "https://zoougolok.com.ua/upload/iblock/" +
+                        barcode +
+                        ".jpg"
+                      }
+                      onError={(e) => {
+                        e.target.src =
+                          "https://zoougolok.com.ua/nopic/default.png";
+                      }}
+                    />
+                  </div>
+
                   <div>
                     <h2 className="cartProducName">{name}</h2>
                     <p>{opt}</p>
