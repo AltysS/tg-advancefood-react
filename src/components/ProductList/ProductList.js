@@ -11,6 +11,7 @@ import {
   setSortedProducts,
   sortRequestedProducts,
 } from "../../store/catalogue/catalogueSlice";
+import Preloader from "../Preloader/Preloader";
 import ProductItem from "../ProductItem/ProductItem";
 import Вreadcrumbs from "../Вreadcrumbs/Вreadcrumbs";
 
@@ -94,7 +95,7 @@ const ProductList = () => {
   return (
     <div>
       {products.length === 0 ? (
-        <h2>Loading</h2>
+        <Preloader />
       ) : (
         <>
           <h2>Product List</h2>

@@ -127,7 +127,7 @@ const Вreadcrumbs = ({
     <div className="breadcrumbsWrapper">
       <nav>
         <ul className="breadcrumbsItemList">
-          {categoryLevel >= 0 && (
+          {!isLoading && categoryLevel >= 0 && (
             <li className="breadcrumbsItemContainer">
               <a
                 className="breadcrumbsItemLink"

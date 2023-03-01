@@ -10,6 +10,7 @@ import {
   setIsLoading,
 } from "../../store/catalogue/catalogueSlice";
 import Button from "../Button/Button";
+import Preloader from "../Preloader/Preloader";
 import Вreadcrumbs from "../Вreadcrumbs/Вreadcrumbs";
 
 import "./RootCatalogue.css";
@@ -158,7 +159,7 @@ const RootCatalogue = () => {
       >
         Go Back
       </Button> */}
-      {!isLoading ? categoryComponent() : <h2>Loading</h2>}
+      {!isLoading ? categoryComponent() : <Preloader />}
     </div>
   );
 };
