@@ -37,12 +37,13 @@ const ProductItem = ({
           maxWidth: "150px",
           padding: "1px",
           overflowWrap: "break-word",
+          minHeight: "80px",
         }}
       >
         <h2>{name}</h2>
       </div>
       <p>Available Qty: {count}</p>
-      <p>{price} UAH</p>
+      <p className="itemPrice">{price} UAH</p>
       <div className="propsWrapper">
         {opt.map((el) => {
           const inCart = cart.find((item) => item.barcode === el.barcode);

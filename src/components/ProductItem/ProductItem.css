@@ -19,7 +19,7 @@
 
 .productImage {
     max-width: 150px;
-    max-height: 150px;
+    height: 100px;
 }
 
 .productOpt {
@@ -28,6 +28,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.itemPrice {
+    font-size: 20px;
+    padding: 10px;
 }
 
 .active {
