@@ -5,12 +5,14 @@ import {
   decrementCartProduct,
   deleteAllProducts,
   incrementCartProduct,
+  setCheckoutForm,
 } from "../../store/cart/cart";
 import {
   getCatalogueCategories,
   setIsLoading,
 } from "../../store/catalogue/catalogueSlice";
 import Button from "../Button/Button";
+import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import "./Cart.css";
 import DeleteFromCartIMG from "./images/deleteFromCartIMG";
 
@@ -19,6 +21,18 @@ const Cart = () => {
   const categories = useSelector(
     (state) => state.catalogue.catalogueCategories
   );
+
+  const isCheckoutFormOpen = useSelector(
+    (state) => state.cart.isCheckoutFormOpen
+  );
+
+  const calculateSum = () => {
+    const sum = productInCart.reduce(
+      (acc, el) => acc + el.price * el.orderedQty,
+      0
+    );
+    return parseFloat(sum).toFixed(2);
+  };
 
   const dispatch = useDispatch();
 
@@ -69,7 +83,7 @@ const Cart = () => {
                     <h2 className="cartProducName">{name}</h2>
                     <p>{opt}</p>
                     <div className="cartProductQty">
-                      <p>{price}</p>
+                      <p>{parseFloat(price).toFixed(0)}</p>
                       <Button
                         className="incrementAndDecrementButtons"
                         onClick={() => {
@@ -87,7 +101,7 @@ const Cart = () => {
                       >
                         +
                       </Button>
-                      <p>{price * orderedQty}</p>
+                      <p>{parseFloat(price * orderedQty).toFixed(0)}</p>
                     </div>
                   </div>
                 </div>
@@ -96,12 +110,25 @@ const Cart = () => {
           })}
         </>
       )}
-      <div>
-        Сумма замовлення:{" "}
-        {productInCart.reduce((acc, el) => acc + el.price * el.orderedQty, 0)}{" "}
-        UAH
+      <p style={{ textAlign: "center" }}>
+        Сумма замовлення: {calculateSum()} UAH
+      </p>
+
+      <div className="orderBtnWrapper">
+        <Button
+          className="orderBtn"
+          onClick={() => {
+            scrollTo(0, 0);
+            dispatch(setCheckoutForm(true));
+          }}
+        >
+          Замовити
+        </Button>
       </div>
-      <Button>Замовити</Button>
+      {isCheckoutFormOpen
+        ? document.body.classList.add("toggleScroll")
+        : document.body.classList.remove("toggleScroll")}
+      {isCheckoutFormOpen && <CheckoutForm />}
     </>
   );
 };

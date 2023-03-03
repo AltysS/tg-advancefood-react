@@ -4,6 +4,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     shoppingCart: [],
+    isCheckoutFormOpen: false,
   },
   reducers: {
     cartHasUnmanagedProducts: (state) => {
@@ -61,6 +62,9 @@ const cartSlice = createSlice({
         state.shoppingCart[findIndex].orderedQty -= 1;
       }
     },
+    setCheckoutForm: (state, action) => {
+      state.isCheckoutFormOpen = action.payload;
+    },
   },
 });
 export const {
@@ -70,6 +74,7 @@ export const {
   decrementCartProduct,
   deleteAllProducts,
   cartHasUnmanagedProducts,
+  setCheckoutForm,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

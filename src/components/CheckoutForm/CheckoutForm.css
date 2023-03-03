@@ -1,0 +1,54 @@
+.modalCheckoutForm {
+    position: absolute;
+    width: 100%;
+    height: 200vh;
+    left: 0;
+    top: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.checkoutForm {
+    position: absolute;
+    top: 10%;
+    border: 1px solid black;
+    background-color: white;
+    padding: 15px;
+    z-index: 100;
+    width: 100%;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.closeCheckouMenu {
+    text-align: right;
+}
+.checkoutFormTitle {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.checkoutFormInput {
+    width: 100%;
+    border: none;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+.checkoutFormCommentsArea {
+    width: 100%;
+    border: none;
+    background-color: #f2f2f2;
+    padding: 15px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    resize: none;
+}
+
+.checkoutOrderBtn {
+    background-color: rgb(40, 80, 82);
+    color: white;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+}

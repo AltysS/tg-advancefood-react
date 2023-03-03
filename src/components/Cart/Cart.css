@@ -1,6 +1,6 @@
 .productCartWrapper {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     margin-bottom: 40px;
     /* border: 1px solid black; */
@@ -32,4 +32,18 @@
 .productCartDeleteBtn {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.orderBtnWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.orderBtn {
+    background-color: rgb(40, 80, 82);
+    color: white;
+    border-radius: 15px;
+    border: none;
+    padding: 15px;
 }
