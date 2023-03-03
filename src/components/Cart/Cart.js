@@ -64,7 +64,7 @@ const Cart = () => {
                   >
                     <DeleteFromCartIMG />
                   </div>
-                  <div>
+                  <div className="cartImageWrapper">
                     <img
                       className="cartProductImage"
                       src={

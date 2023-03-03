@@ -9,7 +9,9 @@
 
 .checkoutForm {
     position: absolute;
-    top: 10%;
+    overflow: auto;
+    top: 50%;
+    transform: translate(0, -50%);
     border: 1px solid black;
     background-color: white;
     padding: 15px;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCheckoutForm } from "../../store/cart/cart";
 import Button from "../Button/Button";
 import CloseMenu from "../Header/images/CloseMenu";
@@ -8,6 +8,7 @@ import "./CheckoutForm.css";
 const CheckoutForm = () => {
   const savedInfo = JSON.parse(localStorage.getItem("userInfo"));
   const dispatch = useDispatch();
+  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
   const [name, setName] = useState(savedInfo?.name || "");
   const [surname, setSurname] = useState(savedInfo?.surname || "");
   const [nurseryName, setNurseryName] = useState(savedInfo?.nurseryName || "");
@@ -42,7 +43,22 @@ const CheckoutForm = () => {
           </span>
         </div>
         <h2 className="checkoutFormTitle">Оформлення замовлення</h2>
-        <form>
+        <form
+          onSubmit={(e) => {
+            const userOrder = {
+              name,
+              surname,
+              nurseryName,
+              deliveryAddress,
+              telephone,
+              email,
+              comments,
+              shoppingCart,
+            };
+            e.preventDefault();
+            console.log(userOrder);
+          }}
+        >
           <input
             onChange={(e) => {
               handleInputChange(e.target.value, setName, "name");
