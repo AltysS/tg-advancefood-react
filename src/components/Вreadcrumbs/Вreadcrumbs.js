@@ -78,6 +78,7 @@ const Вreadcrumbs = ({
         );
       });
     } else if (childID) {
+      console.log("here");
       const category = categories[0].find((el) => el.id === Number(params.id));
 
       const subCategory = categories[categoryLevel - 1].filter(
@@ -116,6 +117,8 @@ const Вreadcrumbs = ({
         </>
       );
     } else {
+      console.log("here 111");
+
       const category = categories[categoryLevel - 1].find(
         (el) => el.id === Number(params.id)
       );

@@ -85,3 +85,35 @@
     border-radius: 15px;
     border: none;
 }
+
+.notVisibleProduct {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.notVisibleProductFlying {
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: fly 5s ease-in-out forwards;
+    z-index: 100;
+    display: block;
+}
+
+@keyframes fly {
+    0% {
+        opacity: 1;
+        left: 35%;
+        top: 20%;
+        display: block;
+    }
+    100% {
+        opacity: 0;
+        left: 80%;
+        top: 0;
+        display: none;
+    }
+}

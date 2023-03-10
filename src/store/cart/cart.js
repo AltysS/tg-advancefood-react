@@ -7,6 +7,10 @@ const cartSlice = createSlice({
     isCheckoutFormOpen: false,
   },
   reducers: {
+    successfulOrder: (state) => {
+      state.shoppingCart = [];
+      state.isCheckoutFormOpen = false;
+    },
     cartHasUnmanagedProducts: (state) => {
       const cartItems = JSON.parse(localStorage.getItem("inCart"));
       if (cartItems) {
@@ -58,8 +62,10 @@ const cartSlice = createSlice({
       );
       if (state.shoppingCart[findIndex].orderedQty === 1) {
         state.shoppingCart.splice(findIndex, 1);
+        localStorage.setItem("inCart", JSON.stringify(state.shoppingCart));
       } else {
         state.shoppingCart[findIndex].orderedQty -= 1;
+        localStorage.setItem("inCart", JSON.stringify(state.shoppingCart));
       }
     },
     setCheckoutForm: (state, action) => {
@@ -75,6 +81,7 @@ export const {
   deleteAllProducts,
   cartHasUnmanagedProducts,
   setCheckoutForm,
+  successfulOrder,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

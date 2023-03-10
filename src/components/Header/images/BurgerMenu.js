@@ -4,14 +4,14 @@ const BurgerMenu = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="14"
+      width="30"
+      height="35"
       viewBox="0 0 20 14"
     >
       <g
         fill="none"
         fillrule="evenodd"
-        stroke="#000"
+        stroke="#ffffff"
         strokelinecap="round"
         strokelinejoin="round"
         strokewidth="2"

@@ -19,6 +19,7 @@ const Header = () => {
   );
   const isLoading = useSelector((state) => state.catalogue.isLoading);
   const isMenuOpen = useSelector((state) => state.catalogue.isMenuOpen);
+  const productsInCart = useSelector((state) => state.cart.shoppingCart);
 
   return (
     <header>
@@ -53,14 +54,31 @@ const Header = () => {
           </div>
         </div>
       )}
+      {/* <Logo /> */}
       <div
         onClick={() => {
           if (!isLoading) {
             navigate("/cart");
           }
         }}
-        style={{ width: "20px", height: "20px" }}
+        style={{ display: "flex", position: "relative" }}
       >
+        {
+          <div
+            style={{
+              position: "absolute",
+              left: 13,
+              top: 11,
+              width: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <p style={{ color: "white", fontSize: "10px" }}>
+              {productsInCart.reduce((acc, el) => acc + el.orderedQty, 0)}
+            </p>
+          </div>
+        }
         <CartImage />
       </div>
     </header>

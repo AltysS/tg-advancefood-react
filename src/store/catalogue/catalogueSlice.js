@@ -34,6 +34,9 @@ const catalogueSlice = createSlice({
     requestedProducts: [],
   },
   reducers: {
+    // orderCompleted: (state) => {
+    //   categoryLevel: 0
+    // },
     sortRequestedProducts: (state, action) => {
       const findIndex = state.requestedProducts.findIndex(
         (el) => el.sku === action.payload.sku

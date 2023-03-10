@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCheckoutForm } from "../../store/cart/cart";
+import { useNavigate } from "react-router-dom";
+import { setCheckoutForm, successfulOrder } from "../../store/cart/cart";
 import Button from "../Button/Button";
+import {
+  setCategoryLevel,
+  setCategoryID,
+} from "../../store/catalogue/catalogueSlice";
 import CloseMenu from "../Header/images/CloseMenu";
 import "./CheckoutForm.css";
 
 const CheckoutForm = () => {
+  const navigate = useNavigate();
   const savedInfo = JSON.parse(localStorage.getItem("userInfo"));
   const dispatch = useDispatch();
   const shoppingCart = useSelector((state) => state.cart.shoppingCart);
@@ -44,7 +50,7 @@ const CheckoutForm = () => {
         </div>
         <h2 className="checkoutFormTitle">Оформлення замовлення</h2>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             const userOrder = {
               name,
               surname,
@@ -56,7 +62,31 @@ const CheckoutForm = () => {
               shoppingCart,
             };
             e.preventDefault();
-            console.log(userOrder);
+            try {
+              // "http://localhost:4000/placeorder
+
+              const data = await fetch(
+                "https://breader.detta.com.ua:4000/placeorder",
+                {
+                  // mode: "no-cors",
+                  method: "POST",
+                  headers: {
+                    "Content-type": "application/json",
+                  },
+                  body: JSON.stringify(userOrder),
+                }
+              ).then((res) => res.json());
+              console.log(data);
+              if (data.status === 200) {
+                localStorage.removeItem("inCart");
+                dispatch(successfulOrder());
+                dispatch(setCategoryLevel(0));
+                dispatch(setCategoryID(null));
+                navigate(`/succesfullorder/${data.orderNumber}`);
+              }
+            } catch (err) {
+              console.log(err);
+            }
           }}
         >
           <input
